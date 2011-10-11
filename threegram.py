@@ -20,10 +20,10 @@ class Tagger(object):
 
     def transit(self, first, second, third):
         bigram = (first, second)
-        if bigram in bigrams:
+        if bigram in self.bigrams:
             trigram = (first, second, third)
             if trigram in trigrams:
-                return trigrams[trigram]
+                return 1.0 * self.trigrams[trigram] / self.bigrams[bigram]
             else:
                 return 0
         else:
