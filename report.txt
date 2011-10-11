@@ -30,6 +30,11 @@ MISC:	 0.045960	0.264929	0.078331
 which seems to suggest that making things rare is not useful yet.
 We can find this by running emitter_no_rare.py from within the mnn2104_h1 directory.  It will populate the prediction_no_rare.file file.
 
+The threegram.py fulfils the requirement of being able to classify based on a count file, and also to print.  Sample program:
+tagger = Tagger()
+tagger.classify("count.file")
+tagger.simple_printer("out.file")
+
 Rarifying and also using viterbi's however, gives great improvement.  The result we found was:
 
 Found 4669 NEs. Expected 5931 NEs; Correct: 3656.
