@@ -3,6 +3,9 @@ import time
 from pprint import pprint
 
 class Viterbi(object):
+    """
+    The class for handling the viterbi implementation
+    """
     def __init__(self):
         self.word_to_part = {}
         self.part_count = {}
@@ -11,28 +14,10 @@ class Viterbi(object):
         self.trigrams = {}
         self.cur_best = {}
 
-    #TODO
-    def tag(self, filename):
-        fp = open(filename)
-
-        first = None
-        second = None
-        third = None
-
-        for line in fp:
-            first = second
-            second = third
-            third = line.strip()
-            if third == "":
-                third = "STOP"
-
-        first = second
-        second = third
-        third = "STOP"
-
-        fp.close()
-
     def classify(self, filename):
+        """
+        Classifies the trigrams, bigrams, and word/part of speech pairs in a counts file
+        """
         fp = open(filename)
 
         for line in fp:
@@ -66,6 +51,9 @@ class Viterbi(object):
 
 
     def transit(self, first, second, third):
+        """
+        Gives a probability based on three parts of speech
+        """
         bigram = (first, second)
         if bigram in self.bigrams:
             trigram = (first, second, third)
@@ -79,15 +67,19 @@ class Viterbi(object):
         fp.close()
 
     def emit(self, part, word):
+        """
+        Gives a probability based on a part of speech, word pair
+        """
         if part in self.part_count and (part, word) in self.part_word_pair_count:
             return(1.0 * self.part_word_pair_count[(part, word)])/ self.part_count[part]
         else:
             return 0
 
-    #TODO
-    #NEEDS MORE TRANSIT
     def handle_sentence(self, sentence, fp_write):
-
+        """
+        Viterbi's needs an entire sentence, and then needs to write to
+        a file based on what it figures out in that sentence.
+        """
         old_dict = {("*", "*"): (1.0,[])}
         for word in sentence:
             cur_dict = {}
@@ -123,7 +115,9 @@ class Viterbi(object):
                 fp_write.write("\n")
 
     def printer(self, read_filename, write_filename):
-
+        """
+        The actual heavy lifting method, needs to be told which file to read and which to write to
+        """
         fp_write = open(write_filename, "w")
         fp_read = open(read_filename)
 
@@ -142,6 +136,9 @@ class Viterbi(object):
         fp_read.close()
 
 def rare_type(word):
+    """
+    Figures out which rare type a rare word is
+    """
     if is_number(word):
         return "_NUM_"
     elif is_all_caps(word):

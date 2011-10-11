@@ -1,5 +1,8 @@
 
 def rarify(count_file, input_file, output_file):
+    """
+    Dumps data into a new output file which can be used to populate a new counts file, now with rares
+    """
     LIMIT = 5
 
     input_fp = open(input_file)

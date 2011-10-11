@@ -8,6 +8,9 @@ class Emitter(object):
         self.part_word_pair_count = {}
 
     def classify(self, filename):
+        """
+        Classifies part of speech, word pairs for the given count file filename
+        """
         fp = open(filename)
         for line in fp:
             lst = line.split()
@@ -36,12 +39,18 @@ class Emitter(object):
         fp.close()
 
     def emit(self, part, word):
+        """
+        Emits a probability based on the part of speech and word.
+        """
         if part in self.part_count and (part, word) in self.part_word_pair_count:
             return(1.0 * self.part_word_pair_count[(part, word)])/ self.part_count[part]
         else:
             return 0
 
     def printer(self, read_filename, write_filename):
+        """
+        Prints probabilities for each word, part of speech pair it spits out
+        """
         fp_write = open(write_filename, "w")
         fp_read = open(read_filename)
         index = -1

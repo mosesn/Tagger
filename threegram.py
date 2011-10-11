@@ -2,12 +2,19 @@ import math
 from pprint import pprint
 
 class Tagger(object):
+    """
+    Tagger for tagging threegrams
+    """
 
     def __init__(self):
         self.bigrams = {}
         self.trigrams = {}
 
     def classify(self, filename):
+        """
+        Classifies based on a count file.
+        """
+
         fp = open(filename)
 
         for line in fp:
@@ -32,6 +39,9 @@ class Tagger(object):
         fp.close()
 
     def simple_printer(self, filename):
+        """
+        Given the name of a file with three parts of speech, gives the log probability given that the previous 2 words had occured
+        """
         fp = open(filename)
 
         for line in fp:

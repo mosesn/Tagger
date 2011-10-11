@@ -1,4 +1,9 @@
 def rarify(count_file, input_file, output_file):
+    """
+    Must be given a count file, input file, and output file
+    The count file is used to figure out historic data
+    Input file is used, in conjunction with historic data to create the new rares in the output file
+    """
     LIMIT = 5
 
     input_fp = open(input_file)
@@ -35,6 +40,9 @@ def rarify(count_file, input_file, output_file):
     count_fp.close()
 
 def rare_type(word):
+    """
+    Figures out which rare type a rare word is
+    """
     if is_number(word):
         return "_NUM_"
     elif is_all_caps(word):
